@@ -2,8 +2,8 @@
 Скрипт для переноса директорий gradle, maven и npm на локальные папки на компьютере, очистки кэша и установки дефолтных значений обратного скроллинга мыши, переключения раскладки по CapsLock и использования F клавиш по их прямому назначению
 
 # Установка 
-**Launchpad** -> **Search** -> **Automator** -> **Application** -> **Choose**
+**Launchpad** -> **Search** -> **Automator** -> **Application** -> **Choose**<br />
 В поиске выбрать 'Run shell script', скопировать в поле для ввода скрипта содержимое файла init.sh и сохранить полученное приложение.
 
-**Launchpad** -> **System preferences** -> **Users & Groups** -> **'+'** 
+**Launchpad** -> **System preferences** -> **Users & Groups** -> **'+'**<br />
 Выбрать сохраненное ранее приложение.
