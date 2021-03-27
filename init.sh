@@ -5,7 +5,6 @@ CACHES_DIR="$HOME/Library/Caches/"
 
 idea="https://download.jetbrains.com/idea/ideaIU-2020.3.3.dmg@IntelliJ IDEA.app"
 vlc="https://mirror.yandex.ru/mirrors/ftp.videolan.org/vlc/3.0.11.1/macosx/vlc-3.0.11.1.dmg@VLC.app"
-tor="https://www.torproject.org/dist/torbrowser/10.0.5/TorBrowser-10.0.5-osx64_en-US.dmg@Tor Browser.app"
 
 apps=("${idea}" "${vlc}")
 echo "logged in $(date)" >>log.txt
@@ -50,9 +49,5 @@ for app in "${apps[@]}"; do
     fi
   fi
 done
-
-if [[ ! -e "$HOME/.sdkman/bin" ]] ;then
-  curl -s "https://get.sdkman.io" | sed 's#if \[ -d \"$SDKMAN_DIR\" \]; then#if \[ -d \"$SDKMAN_DIR/bin\" \]; then#g' | bash
-fi
 
 exit 0
