@@ -3,8 +3,9 @@
 GOINFREDIR="$HOME/goinfre"
 CACHES_DIR="$HOME/Library/Caches/"
 
-idea="https://download.jetbrains.com/idea/ideaIU-2020.3.3.dmg@IntelliJ IDEA.app"
+idea="https://download.jetbrains.com/idea/ideaIU-2021.1.2.dmg@IntelliJ IDEA.app"
 vlc="https://mirror.yandex.ru/mirrors/ftp.videolan.org/vlc/3.0.11.1/macosx/vlc-3.0.11.1.dmg@VLC.app"
+#cura="https://storage.googleapis.com/software.ultimaker.com/cura/Ultimaker_Cura-4.8.0-Darwin.dmg@Ultimaker Cura.app"
 
 apps=("${idea}" "${vlc}")
 echo "logged in $(date)" >>log.txt
@@ -37,7 +38,7 @@ for app in "${apps[@]}"; do
       fi
     fi
     if [[ -e "$GOINFREDIR/$file_name" ]]; then
-      volume_name="$(hdiutil attach "$GOINFREDIR/$file_name" | grep 'Apple_HFS' | grep '.*\t.*\t.*' | awk -F'\t' '{print $3}')"
+      volume_name="$(hdiutil attach "$GOINFREDIR/$file_name" | grep '.*\tApple_HFS *\t.*' | awk -F'\t' '{print $3}')"
       echo "$volume_name"
       volume_app="$volume_name/$appname"
       echo "$volume_app"
