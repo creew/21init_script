@@ -7,23 +7,35 @@ idea="https://download.jetbrains.com/idea/ideaIU-2021.1.2.dmg@IntelliJ IDEA.app"
 vlc="https://mirror.yandex.ru/mirrors/ftp.videolan.org/vlc/3.0.11.1/macosx/vlc-3.0.11.1.dmg@VLC.app"
 #cura="https://storage.googleapis.com/software.ultimaker.com/cura/Ultimaker_Cura-4.8.0-Darwin.dmg@Ultimaker Cura.app"
 
-apps=("${idea}" "${vlc}")
+apps=()
 echo "logged in $(date)" >>log.txt
-folders=(".m2" ".npm" ".gradle" "Applications" "Library/Containers/com.docker.docker" ".sdkman" "Library/Java")
+folders=(".m2" ".npm" ".gradle" ".brew" "Applications" "Library/Containers/com.docker.docker" ".sdkman" "Library/Java" "VirtualBox VMs" ".vagrant.d")
+
+if [[ ! -e "$GOINFREDIR/.brew/.git" ]]; then
+    curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
+    brew tap LouisBrunner/valgrind
+	brew install --HEAD LouisBrunner/valgrind/valgrind
+	brew install sdl2 sdl2_gfx sdl2_image
+	mv $HOME/.brew $GOINFREDIR/.brew 
+fi
+set -- "$@" "10" "-1"
 
 for i in "${folders[@]}"; do
   [[ ! -e "$GOINFREDIR/$i" ]] && mkdir -p "$GOINFREDIR/$i" && echo "dir $i created"
   [[ -d "$HOME/$i" ]] && [[ ! -L "$HOME/$i" ]] && rm -rf "${HOME:?}/$i" && echo "$HOME/$i is not a symlink, deleting..."
   [[ ! -e "$HOME/$i" ]] && ln -s "$GOINFREDIR/$i" "$HOME/$i" && echo "link $i created"
 done
+set -- "$@" "20" "-1"
 
 defaults write -g com.apple.swipescrolldirection -bool false
 defaults write -g com.apple.keyboard.fnState -bool true
 defaults write -g TISRomanSwitchState -bool true
+set -- "$@" "25" "-1"
 
 for f in "$CACHES_DIR"*; do
   rm -rf "$f" && echo "$f deleted"
 done
+set -- "$@" "30" "-1"
 
 for app in "${apps[@]}"; do
   link=$(echo "$app" | awk -F@ ' { print $1 } ')
