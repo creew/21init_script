@@ -2,9 +2,10 @@
 
 GOINFREDIR="$HOME/goinfre"
 CACHES_DIR="$HOME/Library/Caches/"
+SLACK_CACHES_DIR="$HOME/Library/Application Support/Slack/Service Worker/CacheStorage"
 
-idea="https://download.jetbrains.com/idea/ideaIU-2021.1.2.dmg@IntelliJ IDEA.app"
-vlc="https://mirror.yandex.ru/mirrors/ftp.videolan.org/vlc/3.0.11.1/macosx/vlc-3.0.11.1.dmg@VLC.app"
+idea="https://download.jetbrains.com/idea/ideaIU-2021.3.dmg@IntelliJ IDEA.app"
+#vlc="https://mirror.yandex.ru/mirrors/ftp.videolan.org/vlc/3.0.11.1/macosx/vlc-3.0.11.1.dmg@VLC.app"
 #cura="https://storage.googleapis.com/software.ultimaker.com/cura/Ultimaker_Cura-4.8.0-Darwin.dmg@Ultimaker Cura.app"
 
 apps=()
@@ -35,6 +36,7 @@ set -- "$@" "25" "-1"
 for f in "$CACHES_DIR"*; do
   rm -rf "$f" && echo "$f deleted"
 done
+rm -rf "$SLACK_CACHES_DIR" && echo "$SLACK_CACHES_DIR deleted"
 set -- "$@" "30" "-1"
 
 for app in "${apps[@]}"; do
