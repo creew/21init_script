@@ -4,21 +4,31 @@ GOINFREDIR="$HOME/goinfre"
 CACHES_DIR="$HOME/Library/Caches/"
 SLACK_CACHES_DIR="$HOME/Library/Application Support/Slack/Service Worker/CacheStorage"
 
-idea="https://download.jetbrains.com/idea/ideaIU-2021.3.dmg@IntelliJ IDEA.app"
+idea="https://download-cdn.jetbrains.com/idea/ideaIU-2022.1.dmg@IntelliJ IDEA.app"
 #vlc="https://mirror.yandex.ru/mirrors/ftp.videolan.org/vlc/3.0.11.1/macosx/vlc-3.0.11.1.dmg@VLC.app"
 #cura="https://storage.googleapis.com/software.ultimaker.com/cura/Ultimaker_Cura-4.8.0-Darwin.dmg@Ultimaker Cura.app"
 
-apps=()
+apps=("${idea}")
 echo "logged in $(date)" >>log.txt
 folders=(".m2" ".npm" ".gradle" ".brew" "Applications" "Library/Containers/com.docker.docker" ".sdkman" "Library/Java" "VirtualBox VMs" ".vagrant.d")
 
 if [[ ! -e "$GOINFREDIR/.brew/.git" ]]; then
-    curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
-    brew tap LouisBrunner/valgrind
-	brew install --HEAD LouisBrunner/valgrind/valgrind
-	brew install sdl2 sdl2_gfx sdl2_image
-	mv $HOME/.brew $GOINFREDIR/.brew 
+  PREV_HOME=$HOME
+  HOME=$GOINFREDIR
+  curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
+  brew tap LouisBrunner/valgrind
+  brew install --HEAD LouisBrunner/valgrind/valgrind
+  brew install sdl2 sdl2_gfx sdl2_image
+  HOME=$PREV_HOME
 fi
+
+# Add .brewconfig sourcing in your .zshrc if not already present
+if ! grep -q "# Load Homebrew config script" $HOME/.zshrc; then
+  echo "" >> $HOME/.zshrc
+  echo "# Load Homebrew config script" >> $HOME/.zshrc
+  echo "source $GOINFREDIR/.brewconfig.zsh" >> $HOME/.zshrc
+fi
+
 set -- "$@" "10" "-1"
 
 for i in "${folders[@]}"; do
